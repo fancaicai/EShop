@@ -1,0 +1,41 @@
+1. 包结构：
+    base:工具类、自定义的视图、基类
+    feature:Activity、Fragment、适配器等页面实现需要的内容：页面Activity等
+            根据内部的页面或功能分包
+    network:数据：服务器的接口、实体类等网络请求方面的数据内容
+
+2. 在这个项目里面我们加入一个内存泄漏监测的工具：LeakCanary
+    1. 添加依赖：github搜索
+        debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+        releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+        testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
+    2. 创建Application，要在清单文件里面指定，并且实现LeakCanary的初始化
+
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+
+                    // 这个是用于分析内存的线程，我们不能再这里面初始化我们项目
+                    return;
+                }
+                LeakCanary.install(this);
+
+                // 正常的app初始化
+
+20170221：
+总结：
+1. AS Git
+2. Butterknife
+3. 分包的包结构，资源的介绍
+4. 内存泄漏监测工具的添加
+5. 实现了Spalsh页面的效果：图片设置透明度的动画，跳转页面设置转场效果
+任务：实现Spalsh页面。
+明天：主页面搭建：第三方的控件
+
+20170222:
+主页面：
+1. 底部导航栏：BottomBar
+    1. 添加依赖：compile 'com.roughike:bottom-bar:2.1.1'
+    2. 创建一个xml的文件：res/xml/bottom_bar.xml
+    3. 布局中使用
+    4. 在代码里面设置监听事件
+
