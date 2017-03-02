@@ -19,7 +19,6 @@ public abstract class BaseActivity extends TransitionActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentViewLayout());
-
         mUnbinder = ButterKnife.bind(this);
 
         initView();

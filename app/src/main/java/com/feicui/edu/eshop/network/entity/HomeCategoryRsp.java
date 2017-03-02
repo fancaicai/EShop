@@ -10,7 +10,6 @@ import java.util.List;
  */
 public class HomeCategoryRsp extends ResponseEntity {
 
-    @SerializedName("status") private Status mStatus;
 
     @SerializedName("data") private List<CategoryHome> mData;
 
@@ -18,7 +17,4 @@ public class HomeCategoryRsp extends ResponseEntity {
         return mData;
     }
 
-    public Status getStatus() {
-        return mStatus;
-    }
 }

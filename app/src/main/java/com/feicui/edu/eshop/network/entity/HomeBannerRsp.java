@@ -12,12 +12,6 @@ public class HomeBannerRsp extends ResponseEntity {
 
     @SerializedName("data") private Data mData;
 
-    @SerializedName("status") private Status mStatus;
-
-    public Status getStatus() {
-        return mStatus;
-    }
-
     public Data getData() {
         return mData;
     }

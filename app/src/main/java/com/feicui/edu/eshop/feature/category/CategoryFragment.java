@@ -1,5 +1,6 @@
 package com.feicui.edu.eshop.feature.category;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -13,12 +14,14 @@ import com.feicui.edu.eshop.R;
 import com.feicui.edu.eshop.base.utils.BaseFragment;
 import com.feicui.edu.eshop.base.utils.wrapper.ToastWrapper;
 import com.feicui.edu.eshop.base.utils.wrapper.ToolbarWrapper;
+import com.feicui.edu.eshop.feature.search.SearchGoodActivity;
 import com.feicui.edu.eshop.network.EShopClient;
 import com.feicui.edu.eshop.network.core.ApiPath;
 import com.feicui.edu.eshop.network.core.ResponseEntity;
 import com.feicui.edu.eshop.network.core.UICallback;
 import com.feicui.edu.eshop.network.entity.CategoryPrimary;
 import com.feicui.edu.eshop.network.entity.CategoryRsp;
+import com.feicui.edu.eshop.network.entity.Filter;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -107,9 +110,17 @@ public class CategoryFragment extends BaseFragment {
     // 点击二级分类
     @OnItemClick(R.id.list_children)
     public void onChildrenClick(int postion) {
-        // TODO: 2017/2/24 会完善到跳转页面的
-        String name = mChildrenAdapter.getItem(postion).getName();
-        ToastWrapper.show(name);
+
+        int categoryId = mChildrenAdapter.getItem(postion).getId();
+        navigateToSearch(categoryId);
+    }
+
+    private void navigateToSearch(int categoryId) {
+        // 根据id构建Filter，然后跳转页面
+        Filter filter = new Filter();
+        filter.setCategoryId(categoryId);
+        Intent intent = SearchGoodActivity.getStartIntent(getContext(), filter);
+        getActivity().startActivity(intent);
     }
 
     private void initToolbar() {

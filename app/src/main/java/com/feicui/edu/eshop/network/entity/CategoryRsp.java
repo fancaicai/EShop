@@ -15,12 +15,6 @@ public class CategoryRsp extends ResponseEntity {
     @SerializedName("data")
     private List<CategoryPrimary> mData;
 
-    @SerializedName("status")
-    private Status mStatus;
-
-    public Status getStatus() {
-        return mStatus;
-    }
 
     public List<CategoryPrimary> getData() {
         return mData;
