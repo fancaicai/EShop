@@ -22,12 +22,14 @@
             app:theme="@style/Widget.AppCompat.Toolbar">
 
             <!--商品分类搜索：自定义搜索控件-->
+
                         <com.feicui.edu.eshop.base.utils.widgets.banner.SimpleSearchView
                             android:id="@+id/search_view"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/size_36"
                             android:layout_marginRight="@dimen/spacing_normal"
                             android:gravity="center"/>
+
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
@@ -57,13 +59,13 @@
     </LinearLayout>
 
 
-    <!--第三方控件：刷新加载-->
-    <!--
+    第三方控件：刷新加载
+
     <in.srain.cube.views.ptr.PtrFrameLayout
         android:id="@id/standard_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
--->
+
     <ListView
         android:id="@+id/list_goods"
         android:layout_width="match_parent"
@@ -71,7 +73,7 @@
         android:divider="@null"
         android:dividerHeight="1dp"
         android:scrollbars="none"/>
-    <!--
+
         </in.srain.cube.views.ptr.PtrFrameLayout>
-        -->
+
 </RelativeLayout>
