@@ -1,5 +1,6 @@
 package com.feicui.edu.eshop.network.entity;
 
+import com.feicui.edu.eshop.network.core.ResponseEntity;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  */
 
 // 暂时使用的商品分类的响应体
-public class CategoryRsp {
+public class CategoryRsp extends ResponseEntity {
 
     @SerializedName("data")
     private List<CategoryPrimary> mData;

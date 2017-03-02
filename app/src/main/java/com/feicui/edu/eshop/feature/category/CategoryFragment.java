@@ -14,6 +14,8 @@ import com.feicui.edu.eshop.base.utils.BaseFragment;
 import com.feicui.edu.eshop.base.utils.wrapper.ToastWrapper;
 import com.feicui.edu.eshop.base.utils.wrapper.ToolbarWrapper;
 import com.feicui.edu.eshop.network.EShopClient;
+import com.feicui.edu.eshop.network.core.ApiPath;
+import com.feicui.edu.eshop.network.core.ResponseEntity;
 import com.feicui.edu.eshop.network.core.UICallback;
 import com.feicui.edu.eshop.network.entity.CategoryPrimary;
 import com.feicui.edu.eshop.network.entity.CategoryRsp;
@@ -63,36 +65,23 @@ public class CategoryFragment extends BaseFragment {
         listChildren.setAdapter(mChildrenAdapter);
         // 拿到数据
         if (mData != null) {
-// 可以直接更新UI
+      // 可以直接更新UI
             updateCategory();
         } else {
-// 去进行网络请求拿到数据
-            Call call = EShopClient.getInstance().getCategory();
-            call.enqueue(new UICallback() {
-                //                请求失败的处理
-                @Override
-                protected void onFailureInUI(Call call, IOException e) {
-                    ToastWrapper.show("请求失败"+e.getMessage());
-                }
-
+        // 去进行网络请求拿到数据
+            UICallback uiCallback =new UICallback() {
                 //请求成功的处理
                 @Override
-                protected void onResponseInUI(Call call, Response response) {
-                    if (response.isSuccessful()) {
-                        try {
-                            CategoryRsp categoryRsp=new Gson().fromJson(response.body().string(),CategoryRsp.class);
-                            if (categoryRsp.getStatus().isSucceed()) {
-                                mData=categoryRsp.getData();
-                                // 数据有了之后，数据给一级分类，默认选择第一条，二级分类才能展示
-                                updateCategory();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
+                protected void onBusinessResponse(boolean isSucces, ResponseEntity responseEntity) {
+                    if (isSucces) {
+                        CategoryRsp categoryRsp = (CategoryRsp) responseEntity;
+                        mData=categoryRsp.getData();
+                        // 数据有了之后，数据给一级分类，默认选择第一条，二级分类才能展示
+                        updateCategory();
                     }
                 }
-            });
+            };
+            EShopClient.getInstance().enqueue(ApiPath.CATEGORY,null,CategoryRsp.class,uiCallback);
         }
     }
 

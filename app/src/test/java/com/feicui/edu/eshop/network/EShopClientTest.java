@@ -21,38 +21,27 @@ import static org.junit.Assert.*;
 public class EShopClientTest {
     @Test
     public void getCategory() throws Exception {
-        Call call = EShopClient.getInstance().getCategory();
-        Response response = call.execute();
-        String string = response.body().string();
-        CategoryRsp categoryRsp = new Gson().fromJson(string, CategoryRsp.class);
+        CategoryRsp categoryRsp = EShopClient.getInstance().execute("/category", null, CategoryRsp.class);
 // 断言方法：为我们做一个判断
         assertTrue(categoryRsp.getStatus().isSucceed());
 //        单元测试不知道怎么运行来着
     }
     @Test
     public void getHomeBanner() throws Exception{
-        Call call = EShopClient.getInstance().getHomeBanner();
-        Response response =call.execute();
-        String string = response.body().string();
-        HomeBannerRsp bannerRsp = new Gson().fromJson(string, HomeBannerRsp.class);
+        HomeBannerRsp bannerRsp = EShopClient.getInstance().execute("/home/data", null, HomeBannerRsp.class);
         assertTrue(bannerRsp.getStatus().isSucceed());
 
     }
     @Test
     public void getHomeCategory() throws Exception{
-        Call call = EShopClient.getInstance().getHomeCategory();
-        Response response = call.execute();
-        String string = response.body().string();
-        HomeCategoryRsp categoryRsp = new Gson().fromJson(string, HomeCategoryRsp.class);
+        CategoryRsp categoryRsp = EShopClient.getInstance().execute("/home/category", null, CategoryRsp.class);
         assertTrue(categoryRsp.getStatus().isSucceed());
     }
 @Test
     public void getSearch() throws Exception{
     SearchReq searchReq = new SearchReq();
-    Call call = EShopClient.getInstance().getSearch(searchReq);
-    Response response = call.execute();
-    String json = response.body().string();
-    SearchRsp searchRsp = new Gson().fromJson(json, SearchRsp.class);
+    SearchRsp searchRsp = EShopClient.getInstance().execute("/search",searchReq,SearchRsp.class);
+
     assertTrue(searchRsp.getStatus().isSucceed());
 }
 }

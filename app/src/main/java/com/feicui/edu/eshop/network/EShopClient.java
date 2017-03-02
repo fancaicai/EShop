@@ -2,6 +2,7 @@ package com.feicui.edu.eshop.network;
 
 import com.feicui.edu.eshop.network.core.RequestParam;
 import com.feicui.edu.eshop.network.core.ResponseEntity;
+import com.feicui.edu.eshop.network.core.UICallback;
 import com.feicui.edu.eshop.network.entity.SearchReq;
 import com.google.gson.Gson;
 
@@ -97,8 +98,19 @@ public class EShopClient {
         // 异步里面会不会也用到呢？所以写到一个方法里去
         return getResponseEntity(response,clazz);
     }
+    // 异步回调：最后要创建UICallBack
+public Call enqueue(String path,RequestParam requestParam,Class<? extends ResponseEntity> clazz,UICallback uiCallback){
+
+    // 构建call模型,这个call模型到底是干嘛的
+    Call call = newApiCall(path, requestParam);
+    // 告诉uicallback里面的数据要转换的类型
+    uiCallback.setResponseType(clazz);
+    // 为了规范，我们在方法里面直接执行异步方法，就需要一个UiCallback，所以通过参数传递
+    call.enqueue(uiCallback);
+    return call;
+}
     // 根据响应Response，将响应体转换成响应的实体类
-    private <T extends ResponseEntity> T getResponseEntity(Response response, Class<T> clazz) throws IOException {
+    public  <T extends ResponseEntity> T getResponseEntity(Response response, Class<T> clazz) throws IOException {
         // 没有成功
         if (!response.isSuccessful()) {
             throw new IOException("Response code is"+response.code());
