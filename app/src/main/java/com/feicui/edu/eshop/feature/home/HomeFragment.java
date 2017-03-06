@@ -98,7 +98,7 @@ public class HomeFragment extends BaseFragment {
 // 找到头布局里面的控件
         BannerLayout bannerLayout = ButterKnife.findById(view, R.id.layout_banner);
         // 数据和视图的绑定
-// TODO: 2017/2/28 图片展示待实现
+
         mBannerAdapter = new BannerAdapter<Banner>() {
             @Override
             protected void bind(ViewHolder viewHolder, Banner data) {

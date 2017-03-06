@@ -120,9 +120,7 @@ public class EShopMainActivity extends BaseActivity implements OnTabSelectListen
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         if (mCurrentFragment!=mHomeFragment){
-
             // 如果不是在首页，就切换首页上
             mBottomBar.selectTabWithId(R.id.tab_home);
             return;

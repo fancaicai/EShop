@@ -110,17 +110,8 @@ public class CategoryFragment extends BaseFragment {
     // 点击二级分类
     @OnItemClick(R.id.list_children)
     public void onChildrenClick(int postion) {
-
         int categoryId = mChildrenAdapter.getItem(postion).getId();
         navigateToSearch(categoryId);
-    }
-
-    private void navigateToSearch(int categoryId) {
-        // 根据id构建Filter，然后跳转页面
-        Filter filter = new Filter();
-        filter.setCategoryId(categoryId);
-        Intent intent = SearchGoodActivity.getStartIntent(getContext(), filter);
-        getActivity().startActivity(intent);
     }
 
     private void initToolbar() {
@@ -136,16 +127,27 @@ public class CategoryFragment extends BaseFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
+//        返回箭头的处理
         if (itemId == android.R.id.home) {
             getActivity().onBackPressed();
             return true;
         }
         if (itemId == R.id.menu_search) {
-            // TODO: 2017/2/24 后期会跳转到搜素页面上
-            ToastWrapper.show("点击了搜索");
+            int position = listCategory.getCheckedItemPosition();
+            int id = mCategoryAdapter.getItem(position).getId();
+            navigateToSearch(id);
+            return true;
         }
         return super.onOptionsItemSelected(item);
 
+    }
+
+    private void navigateToSearch(int categoryId) {
+        // 根据id构建Filter，然后跳转页面
+        Filter filter = new Filter();
+        filter.setCategoryId(categoryId);
+        Intent intent = SearchGoodActivity.getStartIntent(getContext(), filter);
+        getActivity().startActivity(intent);
     }
 
 

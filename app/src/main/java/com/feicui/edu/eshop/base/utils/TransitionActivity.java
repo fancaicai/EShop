@@ -2,6 +2,7 @@ package com.feicui.edu.eshop.base.utils;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.feicui.edu.eshop.R;
 
@@ -12,6 +13,16 @@ import com.feicui.edu.eshop.R;
 
 // 有转场动画的基类
 public class TransitionActivity extends AppCompatActivity {
+
+    // 处理返回箭头的事件
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void startActivity(Intent intent) {
